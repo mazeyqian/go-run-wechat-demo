@@ -13,6 +13,9 @@ export default {
       message: 'vue-spider'
     }
   },
+  created () {
+    this.getTest()
+  },
   methods: {
     getTest () {
       $.ajax({
@@ -22,12 +25,15 @@ export default {
         dataType: 'jsonp',
         jsonpCallback: 'callSuccess',
         success: function (data) {
-          console.log(data)
+          default.getTestSuccess(data)
         },
         error: function (data) {
           console.log('error: jsonp')
         }
       })
+    },
+    getTestSuccess (data) {
+      console.log(data)
     }
   }
 }
