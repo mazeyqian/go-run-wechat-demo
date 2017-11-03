@@ -13,5 +13,4 @@ let mazey = new Vue({
   template: '<index/>',
   components: { index }
 })
-
 Vue.use(mazey)
