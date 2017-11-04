@@ -1,6 +1,7 @@
  <template>
    <div>
      <h1 class="text-center"><a href="/">爬虫 - 展示筛选</a></h1>
+     <button @click="getParam">get param</button>
      <div class="container">
        <template v-for="(post, index) in posts">
          <div class="row">
@@ -102,6 +103,10 @@
          }
        }
        return false
+     },
+     getParam () {
+       let self = this
+       console.log(self.$route.params)
      }
    }
  }
