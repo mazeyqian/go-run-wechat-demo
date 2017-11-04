@@ -7,14 +7,16 @@
            <div class="col-md-8">
              <article>
                <header>
-                 <h2 class="text-center" v-html="post.post_title"></h2>
+                 <div contenteditable="true" class="text-center" v-html="post.post_title"
+                     :id="'title-' + post.post_id"></div>
                </header>
                <div contenteditable="true" v-html="post.post_content" :id="'content-' + post.post_id">
                </div>
              </article>
            </div>
            <div class="col-md-4">
-             <button class="btn btn-primary" @click="submitPost(post.post_id, index)">提交</button>
+             <button class="btn btn-primary" @click="submitPost(post.post_id, index, 'submit')">提交</button>
+             <button class="btn btn-danger" @click="submitPost(post.post_id, index, 'delete')">删除</button>
            </div>
          </div>
        </template>
@@ -32,8 +34,8 @@
        posts: [
          {
            post_id: '0',
-           post_title: '标题',
-           post_content: '内容'
+           post_title: '标题加载中...',
+           post_content: '内容加载中...'
          }
        ]
      }
@@ -56,15 +58,16 @@
            console.log(error)
          })
      },
-     submitPost (postId, index) {
+     submitPost (postId, index, act) {
        let self = this
        axios({
          method: 'post',
          url: 'http://spider-show.mazey.cn/interface/submit.php',
          data: {
            post_id: postId,
-           post_title: self.getTitleAndContent(postId)['post_title'],
-           post_content: self.getTitleAndContent(postId)['post_content']
+           post_title: document.getElementById('title-' + postId).innerHTML,
+           post_content: document.getElementById('content-' + postId).innerHTML,
+           act
          },
          transformRequest: [function (data) {
            // Do whatever you want to transform the data
@@ -83,6 +86,9 @@
          })
        self.posts.splice(index, 1)
        window.scrollTo(0, 0)
+       if (self.posts.length === 0) {
+         self.getPosts()
+       }
      },
      getTitleAndContent (postId) {
        let arr = this.posts
@@ -100,3 +106,21 @@
    }
  }
  </script>
+
+ <style scoped>
+ div[id^="title-"] {
+   font-family: inherit;
+   font-weight: 500;
+   line-height: 1.1;
+   color: inherit;
+   font-size: 30px;
+   margin-top: 20px;
+   margin-bottom: 10px;
+   box-sizing: border-box;
+   -webkit-margin-before: 0.83em;
+   -webkit-margin-after: 0.83em;
+   -webkit-margin-start: 0px;
+   -webkit-margin-end: 0px;
+   -webkit-tap-highlight-color: rgba(0,0,0,0);
+ }
+ </style>
