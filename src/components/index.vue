@@ -1,16 +1,15 @@
  <template>
    <div>
      <h1 class="text-center"><a href="/">爬虫 - 展示筛选</a></h1>
-     {{ message }}
      <div class="container">
        <template v-for="post in posts">
          <div class="row">
            <div class="col-md-8">
              <article>
                <header>
-                 <h2 class="text-center" v-html="post[0]"></h2>
+                 <h2 class="text-center" v-html="post.title"></h2>
                </header>
-               <div contenteditable="true" v-html="post[1]">
+               <div contenteditable="true" v-html="post.content">
                </div>
              </article>
            </div>
@@ -27,10 +26,10 @@
      return {
        message: 'vue-spider',
        posts: [
-         [
-           '标题',
-           '内容'
-         ]
+         {
+           title: '标题',
+           content: '内容'
+         }
        ]
      }
    },
