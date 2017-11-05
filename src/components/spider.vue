@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="text-center"><a href="/">爬虫 - 展示筛选</a></h1>
-    <button @click="getParam">get param</button>
+    <!--<button @click="getParam">get param</button>-->
     <div class="container">
       <template v-for="(post, index) in posts">
         <div class="row">
@@ -47,9 +47,19 @@
     methods: {
       getPosts () {
         let self = this
-        axios.post('http://spider-show.mazey.cn/interface/post.php', {
-          firstName: 'Mazey',
-          lastName: 'Qian'
+        axios({
+          method: 'post',
+          url: 'http://spider-show.mazey.cn/interface/post.php',
+          data: {
+            name: self.getParam()
+          },
+          transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+          }]
         })
           .then(function (response) {
             console.log(response.data)
@@ -68,7 +78,8 @@
             post_id: postId,
             post_title: document.getElementById('title-' + postId).innerHTML,
             post_content: document.getElementById('content-' + postId).innerHTML,
-            act
+            act,
+            name: self.getParam()
           },
           transformRequest: [function (data) {
             // Do whatever you want to transform the data
@@ -105,7 +116,8 @@
         return false
       },
       getParam () {
-        console.log(this.$route.params)
+        let ret = this.$route.params.db || 'wp'
+        return ret
       }
     }
   }
