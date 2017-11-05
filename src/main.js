@@ -2,16 +2,17 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import index from './components/index.vue'
+import spider from './components/spider.vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-let RouterObj = new VueRouter({
+let router = new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/:dbname',
-      component: index
+      path: '/name',
+      component: spider
     }
   ]
 })
@@ -19,7 +20,7 @@ let RouterObj = new VueRouter({
 /* eslint-disable no-new */
 let mazey = new Vue({
   el: '#app',
-  RouterObj,
+  router,
   template: '<index/>',
   components: { index }
 })
