@@ -11,10 +11,6 @@ let router = new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/',
-      component: index
-    },
-    {
       path: '/:db',
       component: spider
     }
