@@ -119,6 +119,12 @@
         let ret = this.$route.params.db || 'wp'
         return ret
       }
+    },
+    watch: {
+      '$route' (val) {
+        console.log(val)
+        this.getPosts()
+      }
     }
   }
 </script>
