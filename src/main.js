@@ -4,9 +4,7 @@ import Vue from 'vue'
 import index from './components/index.vue'
 import spider from './components/spider.vue'
 import VueRouter from 'vue-router'
-
 Vue.use(VueRouter)
-
 let router = new VueRouter({
   mode: 'history',
   routes: [
