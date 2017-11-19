@@ -122,8 +122,12 @@
     },
     watch: {
       '$route' (val) {
-        console.log(val)
+        // console.log(val)
         // this.getPosts()
+        // 路由改变传数据库名进vuex
+        this.$store.commit('updateDbName', this.getParam())
+        this.$store.dispatch('fetchPosts')
+        console.log(this.getParam())
       }
     },
     mounted () {
