@@ -3,7 +3,7 @@
     <h1 class="text-center"><a href="/">爬虫 - 展示筛选</a></h1>
     <!--<button @click="getParam">get param</button>-->
     <div class="container">
-      <template v-for="(post, index) in posts">
+      <template v-for="(post, index) in listPosts">
         <div class="row">
           <div class="col-md-8">
             <article>
@@ -42,7 +42,7 @@
       }
     },
     created () {
-      this.getPosts()
+      // this.getPosts()
     },
     methods: {
       getPosts () {
@@ -123,7 +123,15 @@
     watch: {
       '$route' (val) {
         console.log(val)
-        this.getPosts()
+        // this.getPosts()
+      }
+    },
+    mounted () {
+      this.$store.dispatch('fetchPosts')
+    },
+    computed: {
+      listPosts () {
+        return this.$store.getters.getPosts
       }
     }
   }
