@@ -34,7 +34,7 @@ const actions = {
       }]
     })
       .then(function (res) {
-        console.error(res.data)
+        console.log(res.data)
         commit('updatePosts', res.data)
       })
       .catch(function (error) {
@@ -49,6 +49,9 @@ const mutations = {
   },
   updatePosts (state, posts) {
     state.posts = posts
+  },
+  splicePosts (state, index) {
+    state.posts.splice(index, 1)
   }
 }
 

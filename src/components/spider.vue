@@ -41,34 +41,7 @@
         ]
       }
     },
-    created () {
-      // this.getPosts()
-    },
     methods: {
-      getPosts () {
-        let self = this
-        axios({
-          method: 'post',
-          url: 'http://spider-show.mazey.cn/interface/post.php',
-          data: {
-            name: self.getParam()
-          },
-          transformRequest: [function (data) {
-            let ret = ''
-            for (let it in data) {
-              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-            }
-            return ret
-          }]
-        })
-          .then(function (response) {
-            console.log(response.data)
-            self.posts = response.data
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-      },
       submitPost (postId, index, act) {
         let self = this
         axios({
@@ -82,7 +55,6 @@
             name: self.getParam()
           },
           transformRequest: [function (data) {
-            // Do whatever you want to transform the data
             let ret = ''
             for (let it in data) {
               ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
@@ -96,10 +68,10 @@
           .catch(function (error) {
             console.log(error)
           })
-        self.posts.splice(index, 1)
+        self.$store.commit('splicePosts', index)
         window.scrollTo(0, 0)
-        if (self.posts.length === 0) {
-          self.getPosts()
+        if (self.listPosts.length === 0) {
+          self.$store.dispatch('fetchPosts')
         }
       },
       getTitleAndContent (postId) {
@@ -116,14 +88,12 @@
         return false
       },
       getParam () {
-        let ret = this.$route.params.db || 'wp'
+        let ret = this.$route.params.db || 'unknown'
         return ret
       }
     },
     watch: {
       '$route' (val) {
-        // console.log(val)
-        // this.getPosts()
         // 路由改变传数据库名进vuex
         this.$store.commit('updateDbName', this.getParam())
         this.$store.dispatch('fetchPosts')
@@ -131,6 +101,8 @@
       }
     },
     mounted () {
+      // 初始话也要传递数据库名
+      this.$store.commit('updateDbName', this.getParam())
       this.$store.dispatch('fetchPosts')
     },
     computed: {
