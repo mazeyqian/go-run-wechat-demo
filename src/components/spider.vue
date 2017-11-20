@@ -74,19 +74,6 @@
           self.$store.dispatch('fetchPosts')
         }
       },
-      getTitleAndContent (postId) {
-        let arr = this.posts
-        let retArr = []
-        for (let i = 0, max = arr.length; i < max; i++) {
-          let obj = arr[i]
-          if (obj.post_id === postId) {
-            retArr['post_title'] = obj.post_title
-            retArr['post_content'] = obj.post_content
-            return retArr
-          }
-        }
-        return false
-      },
       getParam () {
         let ret = this.$route.params.db || 'unknown'
         return ret
