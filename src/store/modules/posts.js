@@ -41,7 +41,7 @@ const actions = {
         console.log(error)
       })
   },
-  submitPost ({commit, state}, obj) {
+  submitPost ({commit, dispatch, state}, obj) {
     axios({
       method: 'post',
       url: 'http://spider-show.mazey.cn/interface/submit.php',
