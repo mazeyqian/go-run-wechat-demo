@@ -1,28 +1,60 @@
+<style scoped lang="scss">
+  div[id^="title-"] {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+  .title{
+    h1{
+      text-align: center;
+      &>a{
+        text-decoration: none;
+        color: #337ab7;
+        font:{
+          weight: normal;
+          size: 36px;
+        }
+      }
+    }
+  }
+</style>
+
 <template>
-  <div>
-    <h1 class="text-center"><a href="/">爬虫 - 展示筛选</a></h1>
-    <!--<button @click="getParam">get param</button>-->
-    <div class="container">
+  <el-container>
+    <el-header class="title">
+      <h1><a href="/">爬虫 - 展示筛选</a></h1>
+    </el-header>
+    <el-main>
       <template v-for="(post, index) in listPosts">
-        <div class="row">
-          <div class="col-md-8">
-            <article>
+        <el-row type="flex" justify="space-around">
+          <el-col :span="14">
+            <article class="article">
               <header>
-                <div contenteditable="true" class="text-center" v-html="post.post_title"
+                <div contenteditable="true" v-html="post.post_title"
                      :id="'title-' + post.post_id"></div>
               </header>
               <div contenteditable="true" v-html="post.post_content" :id="'content-' + post.post_id">
               </div>
             </article>
-          </div>
-          <div class="col-md-4">
-            <button class="btn btn-primary" @click="submitPost(post.post_id, index, 'submit')">提交</button>
-            <button class="btn btn-danger" @click="submitPost(post.post_id, index, 'delete')">删除</button>
-          </div>
-        </div>
+          </el-col>
+          <el-col :span="6">
+            <el-button type="primary" @click="submitPost(post.post_id, index, 'submit')">提交</el-button>
+            <el-button type="danger" @click="submitPost(post.post_id, index, 'delete')">删除</el-button>
+          </el-col>
+        </el-row>
       </template>
-    </div>
-  </div>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -99,21 +131,3 @@
     }
   }
 </script>
-
-<style scoped>
-  div[id^="title-"] {
-    font-family: inherit;
-    font-weight: 500;
-    line-height: 1.1;
-    color: inherit;
-    font-size: 30px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-    -webkit-margin-before: 0.83em;
-    -webkit-margin-after: 0.83em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-  }
-</style>
