@@ -13,6 +13,7 @@
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+    text-align: center;
   }
   .title{
     h1{
@@ -27,6 +28,13 @@
       }
     }
   }
+  .article{
+    header>div{
+      _text-align: center;
+      display: flex;
+      justify-content: center;
+    }
+  }
 </style>
 
 <template>
@@ -36,8 +44,8 @@
     </el-header>
     <el-main>
       <template v-for="(post, index) in listPosts">
-        <el-row type="flex" justify="space-around">
-          <el-col :span="14">
+        <el-row _type="flex" _justify="space-around">
+          <el-col :span="24">
             <article class="article">
               <header>
                 <div contenteditable="true" v-html="post.post_title"
@@ -47,9 +55,17 @@
               </div>
             </article>
           </el-col>
-          <el-col :span="6">
-            <el-button type="primary" @click="submitPost(post.post_id, index, 'submit')">提交</el-button>
-            <el-button type="danger" @click="submitPost(post.post_id, index, 'delete')">删除</el-button>
+          <el-col :span="24">
+            <el-button type="primary" @click="$store.dispatch('submitPost', {
+              postId: post.post_id,
+              index: index,
+              act: 'submit'
+            })" :loading="post.is_loading">提交</el-button>
+            <el-button type="danger" @click="$store.dispatch('submitPost', {
+              postId: post.post_id,
+              index: index,
+              act: 'delete'
+            })" :loading="post.is_loading">删除</el-button>
           </el-col>
         </el-row>
       </template>
@@ -58,7 +74,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   export default {
     data () {
       return {
@@ -68,44 +83,13 @@
           {
             post_id: '0',
             post_title: '标题加载中...',
-            post_content: '内容加载中...'
+            post_content: '内容加载中...',
+            is_loading: false
           }
         ]
       }
     },
     methods: {
-      submitPost (postId, index, act) {
-        let self = this
-        axios({
-          method: 'post',
-          url: 'http://spider-show.mazey.cn/interface/submit.php',
-          data: {
-            post_id: postId,
-            post_title: document.getElementById('title-' + postId).innerHTML,
-            post_content: document.getElementById('content-' + postId).innerHTML,
-            act,
-            name: self.getParam()
-          },
-          transformRequest: [function (data) {
-            let ret = ''
-            for (let it in data) {
-              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-            }
-            return ret
-          }]
-        })
-          .then(function (response) {
-            console.log(response.data)
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-        self.$store.commit('splicePosts', index)
-        window.scrollTo(0, 0)
-        if (self.listPosts.length === 0) {
-          self.$store.dispatch('fetchPosts')
-        }
-      },
       getParam () {
         let ret = this.$route.params.db || 'unknown'
         return ret

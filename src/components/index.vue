@@ -9,9 +9,6 @@
 <script>
   export default {
     name: 'app',
-    created () {
-      this.who()
-    },
     methods: {
       who () {
         console.log(`i am index`)
