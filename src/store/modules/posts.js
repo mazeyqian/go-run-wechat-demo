@@ -1,13 +1,14 @@
 import axios from 'axios'
+import { Notification } from 'element-ui'
 
 const state = {
   dbName: 'wp',
   postsLength: 10,
   posts: [
     {
-      post_id: 0,
-      post_title: '',
-      post_content: '',
+      post_id: '0',
+      post_title: '标题加载中...',
+      post_content: '内容加载中...',
       is_loading: false
     }
   ]
@@ -37,6 +38,10 @@ const actions = {
       .then(function (res) {
         // console.log(res.data)
         commit('updatePosts', res.data)
+        Notification.success({
+          title: '加载成功',
+          message: '数据库 ' + state.dbName + ' 读取成功！'
+        })
       })
       .catch(function (error) {
         console.log(error)
@@ -44,12 +49,13 @@ const actions = {
   },
   submitPost ({commit, dispatch, state}, obj) {
     commit('btnLoading', obj.index)
+    let postTitle = document.getElementById('title-' + obj.postId).innerHTML
     axios({
       method: 'post',
       url: 'http://spider-show.mazey.cn/interface/submit.php',
       data: {
         post_id: obj.postId,
-        post_title: document.getElementById('title-' + obj.postId).innerHTML,
+        post_title: postTitle,
         post_content: document.getElementById('content-' + obj.postId).innerHTML,
         act: obj.act,
         name: state.dbName
@@ -64,6 +70,11 @@ const actions = {
     })
       .then(function (response) {
         console.log(response.data)
+        let ret = response.data.ret
+        Notification.success({
+          title: ret,
+          message: postTitle
+        })
       })
       .catch(function (error) {
         console.log(error)
@@ -71,6 +82,10 @@ const actions = {
     commit('splicePosts', obj.index)
     window.scrollTo(0, 0)
     if (state.length === 0) {
+      Notification.info({
+        title: '重新加载中',
+        message: '???'
+      })
       dispatch('fetchPosts')
     }
   }

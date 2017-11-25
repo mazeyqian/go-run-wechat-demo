@@ -75,24 +75,17 @@
 
 <script>
   export default {
-    data () {
-      return {
-        message: 'vue-spider',
-        dbName: 'wp',
-        posts: [
-          {
-            post_id: '0',
-            post_title: '标题加载中...',
-            post_content: '内容加载中...',
-            is_loading: false
-          }
-        ]
-      }
-    },
     methods: {
       getParam () {
         let ret = this.$route.params.db || 'unknown'
         return ret
+      },
+      open0 () {
+        this.$notify({
+          title: '成功',
+          message: '这是一条成功的提示消息',
+          type: 'success'
+        })
       }
     },
     watch: {
@@ -100,7 +93,7 @@
         // 路由改变传数据库名进vuex
         this.$store.commit('updateDbName', this.getParam())
         this.$store.dispatch('fetchPosts')
-        console.log(this.getParam())
+        console.log('route: ' + this.getParam())
       }
     },
     mounted () {
