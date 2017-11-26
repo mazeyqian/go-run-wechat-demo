@@ -11,7 +11,11 @@ const state = {
       post_content: '内容加载中...',
       is_loading: false
     }
-  ]
+  ],
+  msgObjUnknown: {
+    title: '未知错误',
+    message: '这是一条未知错误'
+  }
 }
 
 const getters = {
@@ -71,10 +75,19 @@ const actions = {
       .then(function (response) {
         console.log(response.data)
         let ret = response.data.ret
-        Notification.success({
+        let code = response.data.code
+        // console.log(code, typeof code)
+        let msgObj = {
           title: ret,
           message: postTitle
-        })
+        }
+        if (typeof code === 'undefined') {
+          Notification.warning(msgObj)
+        } else if (parseInt(code, 10) === 0) {
+          Notification.success(msgObj)
+        } else {
+          Notification.error(state.msgObjUnknown)
+        }
       })
       .catch(function (error) {
         console.log(error)
@@ -83,8 +96,15 @@ const actions = {
     window.scrollTo(0, 0)
     if (state.posts.length === 0) {
       Notification.info({
-        title: '加载中',
-        message: '数据库 ' + state.dbName + ' 文章读取中...'
+        title: '加载中...',
+        message: '数据库 ' + state.dbName + ' 文章读取中...<br />' + (function () {
+          let d = new Date()
+          let h = d.getHours()
+          let m = d.getMinutes()
+          let s = d.getSeconds()
+          return `${h}:${m}:${s}`
+        })(),
+        dangerouslyUseHTMLString: true
       })
       dispatch('fetchPosts')
     }
