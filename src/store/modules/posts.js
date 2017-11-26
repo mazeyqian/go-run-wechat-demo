@@ -81,10 +81,10 @@ const actions = {
       })
     commit('splicePosts', obj.index)
     window.scrollTo(0, 0)
-    if (state.length === 0) {
+    if (state.posts.length === 0) {
       Notification.info({
-        title: '重新加载中',
-        message: '???'
+        title: '加载中',
+        message: '数据库 ' + state.dbName + ' 文章读取中...'
       })
       dispatch('fetchPosts')
     }

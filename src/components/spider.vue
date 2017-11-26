@@ -45,7 +45,7 @@
     <el-main>
       <template v-for="(post, index) in listPosts">
         <el-row _type="flex" _justify="space-around">
-          <el-col :span="24">
+          <el-col :span="16">
             <article class="article">
               <header>
                 <div contenteditable="true" v-html="post.post_title"
@@ -55,7 +55,9 @@
               </div>
             </article>
           </el-col>
-          <el-col :span="24">
+        </el-row>
+        <el-row>
+          <el-col :span="4">
             <el-button type="primary" @click="$store.dispatch('submitPost', {
               postId: post.post_id,
               index: index,
