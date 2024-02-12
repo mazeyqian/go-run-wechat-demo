@@ -1,13 +1,13 @@
 {
   "$schema": "https://wails.io/schemas/config.v2.json",
-  "name": "go-run-wechat-demo",
+  "name": "WeChat",
   "outputfilename": "go-run-wechat-demo",
   "frontend:install": "npm install",
   "frontend:build": "npm run build",
   "frontend:dev:watcher": "npm run dev",
   "frontend:dev:serverUrl": "auto",
   "author": {
-    "name": "后除",
+    "name": "后除(Cheng)",
     "email": "mazeyqian@gmail.com"
   }
 }
