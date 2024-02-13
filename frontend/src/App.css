@@ -15,6 +15,29 @@
     background-origin: content-box;
 }
 
+.btn {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    border: none;
+    font-size: 14px;
+}
+
+.log-in {
+    width: 200px;
+    height: 36px;
+    line-height: 36px;
+    color: #ffffff;
+    background-color: rgb(42, 171, 103);
+    border-radius: 4px;
+}
+
+.switch-account {
+    background-color: #ffffff;
+    color: rgb(89, 107, 144);
+}
+
 .result {
     height: 20px;
     line-height: 20px;

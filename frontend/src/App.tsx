@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import logo from './assets/images/logo-universal.jpg';
+import logo from './assets/images/logo-universal-w256.jpg';
 import './App.css';
 import {Greet} from "../wailsjs/go/main/App";
 
@@ -17,8 +17,8 @@ function App() {
         <div id="App">
             <img src={logo} id="logo" alt="logo"/>
             <div id="result" className="result">{resultText}</div>
-            <button className="btn" onClick={greet}>Greet</button>
-            <button className="btn" onClick={greet}>Greet</button>
+            <button className="btn log-in" onClick={greet}>Log In</button>
+            <button className="btn switch-account" onClick={greet}>Switch Account</button>
         </div>
     )
 }
