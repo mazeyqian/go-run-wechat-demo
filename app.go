@@ -21,7 +21,14 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-// Greet returns a greeting for the given name
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
+// Log In Success
+func (a *App) LogInSuccess(name string) string {
+	// return fmt.Sprintf("Welcome %s, You are now logged in!", name)
+	// Shorten the message
+	return fmt.Sprintf("Welcome %s, You are logged in!", name)
+}
+
+// Switch Account Success
+func (a *App) SwitchAccountSuccess() string {
+	return "You have switched accounts!"
 }

@@ -8,11 +8,12 @@
     width: 80px;
     height: 80px;
     margin: auto;
-    padding: 10% 0 0;
+    padding: 0;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-origin: content-box;
+    margin-top: 90px;
 }
 
 .btn {
@@ -29,20 +30,28 @@
     height: 36px;
     line-height: 36px;
     color: #ffffff;
-    background-color: rgb(42, 171, 103);
+    background-color: hsla(148, 61%, 46%, 1);
+    /* rgb(42, 171, 103); */
     border-radius: 4px;
+    margin-top: 70px;
 }
 
 .switch-account {
     background-color: #ffffff;
     color: rgb(89, 107, 144);
+    margin-top: 22px;
 }
 
 .result {
     height: 20px;
     line-height: 20px;
-    margin: 1.5rem auto;
+    margin: 0 auto;
     color: rgb(0, 0, 0);
+}
+
+.name {
+    font-size: 16px;
+    margin-top: 20px;
 }
 
 .input-box .btn {
