@@ -5,14 +5,8 @@ import {LogInSuccess, SwitchAccountSuccess} from "../wailsjs/go/main/App";
 
 function App() {
     const [resultText, setResultText] = useState("");
-    // const [name, setName] = useState("除");
     const name = "除";
-    // const updateName = (e: any) => setName(e.target.value);
     const updateResultText = (result: string) => setResultText(result);
-
-    // function greet() {
-    //     Greet(name).then(updateResultText);
-    // }
 
     function logIn() {
         LogInSuccess(name).then(updateResultText);

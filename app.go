@@ -23,8 +23,6 @@ func (a *App) startup(ctx context.Context) {
 
 // Log In Success
 func (a *App) LogInSuccess(name string) string {
-	// return fmt.Sprintf("Welcome %s, You are now logged in!", name)
-	// Shorten the message
 	return fmt.Sprintf("Welcome %s, You are logged in!", name)
 }
 
