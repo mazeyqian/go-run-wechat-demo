@@ -1,10 +1,12 @@
 # Go 桌面应用实战｜使用 Wails 仿微信登录界面 Demo
 
+![Go 桌面应用实战](https://blog.mazey.net/wp-content/uploads/2024/02/wechat-hub-banner-v1-tiny.jpg)
+
 ## 前言
 
-Wails 是一个跨平台桌面应用开发框架，他允许开发者利用 Go 的性能优势，并结合任何前端技术栈，如 React、Vue 或 Svelte，来创建桌面应用。
+[Wails](https://wails.io/ "Wails") 是一个跨平台桌面应用开发框架，他允许开发者利用 [Go](https://go.dev/ "Go") 的性能优势，并结合任何前端技术栈，如 [React](https://react.dev/ "React")、[Vue](https://vuejs.org/ "Vue") 或 [Svelte](https://svelte.dev/ "Svelte")，来创建桌面应用。
 
-对于桌面应用，Electron 长久以来一直是主流选择，他使用 Web 前端技术构建跨平台的桌面应用。然而，Electron 有着较大的内存占用和应用体积，这让 Wails 成为了轻量级的替代方案。
+对于桌面应用，[Electron](https://www.electronjs.org/ "Electron") 长久以来一直是主流选择，他使用 Web 前端技术构建跨平台的桌面应用。然而，Electron 有着较大的内存占用和应用体积，这让 Wails 成为了轻量级的替代方案。
 
 Wails 的显著优势：
 
@@ -12,14 +14,14 @@ Wails 的显著优势：
 2. **原生性能**：Go 提供了接近 C 语言的性能，这使得 Wails 应用能够更高效地运行，尤其是在处理并发任务和系统级操作时。
 3. **简化的构建过程**：Wails 简化了构建过程，只需一条命令就可以将应用打包为可执行文件，无需额外的配置或依赖。
 4. **优秀的开发体验**：和开发 Web 前端应用一样的实时改动反馈，并且可以在浏览器中开发桌面应用。
-5. **原生用户界面元素**：Wails 支持使用系统原生的用户界面元素，提供一致的用户体验。
-6. **灵活的前端选择**：可以选择开发者熟悉的任何前端框架来开发桌面应用。
+5. **原生用户界面元素**：Wails 支持使用[系统原生的用户界面元素](https://wails.io/docs/reference/runtime/dialog "系统原生的用户界面元素")，提供一致的用户体验。
+6. **灵活的前端选择**：可以选择开发者熟悉的[任何前端框架](https://wails.io/docs/community/templates "任何前端框架")来开发桌面应用。
 
 ![Components of a Wails App](https://blog.mazey.net/wp-content/uploads/2024/02/components-of-wails-w800.png)
 
 ## 创建一个 Wails 项目
 
-在开始创建 Wails 项目之前，需要确保系统中已经安装了 Go 和 Node.js，因为 Wails 依赖这两者来构建桌面应用。以下是安装 Wails 框架和创建新项目的步骤。
+在开始创建 Wails 项目之前，需要确保系统中已经安装了 Go 和 [Node.js](https://nodejs.org/en "Node.js")，因为 Wails 依赖这两者来构建桌面应用。以下是安装 Wails 框架和创建新项目的步骤。
 
 ### 安装 Wails
 
@@ -35,7 +37,19 @@ wails version
 
 也可以通过 `wails doctor` 来检查是否所有必要的依赖都已正确安装。
 
-本地开发版本：
+```plain
+# Wails
+# ...
+# System
+# ...
+# Dependencies
+# ...
+# Diagnosis
+# ...
+SUCCESS  Your system is ready for Wails development!
+```
+
+我的本地开发版本：
 
 | #  | Version  |
 | ------------ | ------------ |
@@ -46,7 +60,7 @@ wails version
 
 ### 创建新项目
 
-使用 Wails CLI 创建一个名为 `go-run-wechat-demo` 的新项目：
+使用 [Wails CLI](https://wails.io/docs/reference/cli "Wails CLI") 创建一个名为 `go-run-wechat-demo` 的新项目：
 
 ```bash
 wails init -n go-run-wechat-demo -t react-ts
@@ -57,9 +71,9 @@ wails init -n go-run-wechat-demo -t react-ts
 ![项目结构](https://blog.mazey.net/wp-content/uploads/2024/02/demo-20240212-210518-w797.png)
 
 - **`main.go`** 和 **`app.go`**：Go 应用程序，处理业务逻辑、数据管理和与前端的通信。
-- **`/frontend`**：包含前端的所有代码，使用 React、Vue 或你选择的任何其他框架，负责用户界面和与用户的交互。
+- **`frontend`**：包含前端的所有代码，使用 React、Vue 或你选择的任何其他框架，负责用户界面和与用户的交互。
 - **`go.mod`** 和 **`go.sum`**：Go 的模块依赖文件。
-- **`wails.json`**：Wails 项目的配置文件，定义了如何构建和打包 Wails 应用。
+- **`wails.json`**：Wails 项目的配置文件，定义了如何构建和打包应用。
 - **`build`**：用于存放构建后的应用程序和相关资源。
 
 ## 项目开发：仿微信登录界面
@@ -86,7 +100,7 @@ To develop in the browser and call your bound Go methods from Javascript, naviga
 
 #### 窗口样式和布局
 
-为了模仿微信登录界面，在 `main.go` 文件中，通过 Wails 框架的配置选项修改了应用程序窗口的尺寸、背景色和标题。
+为了模仿微信登录界面，在 `main.go` 文件中，通过 Wails 框架的配置选项修改了应用程序窗口的尺寸 `Width`&`Height`、背景色 `BackgroundColour` 和标题 `Title`。
 
 main.go
 
@@ -118,7 +132,7 @@ func main() {
 
 #### 后端实现
 
-本次 Demo 主要实现两个功能，登录和切换账号；这两个方法可以通过前端 JavaScript 调用。返回的字符串可以用于在 UI 中显示相应的状态消息给用户。在文件 `app.go` 中添加这两个方法。
+本次 Demo 主要实现两个功能，登录和切换账号；这两个方法可以通过前端 [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript "JavaScript") 调用。返回的字符串可以用于在 UI 中显示相应的状态消息给用户。在文件 `app.go` 中添加这两个方法。
 
 ```go
 // Log In Success
@@ -132,7 +146,7 @@ func (a *App) SwitchAccountSuccess() string {
 }
 ```
 
-在 Wails 开发模式下，会自动将 Go 结构体转换为 TypeScript 模块。
+在 Wails 开发模式下，会自动将 Go 结构体转换为 [TypeScript](https://www.typescriptlang.org/ "TypeScript") 模块。
 
 ```typescript
 // Cynhyrchwyd y ffeil hon yn awtomatig. PEIDIWCH Â MODIWL
@@ -179,7 +193,34 @@ function App() {
 export default App
 ```
 
-并且修改了 CSS 样式文件 [frontend/src/App.css](https://github.com/mazeyqian/go-run-wechat-demo/blob/main/frontend/src/App.css "frontend/src/App.css") 来适配界面。
+并且修改了 CSS 样式文件 [frontend/src/App.css](https://github.com/mazeyqian/go-run-wechat-demo/blob/main/frontend/src/App.css "frontend/src/App.css") 来适配界面：
+
+```css
+.btn {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    border: none;
+    font-size: 14px;
+}
+
+.log-in {
+    width: 200px;
+    height: 36px;
+    line-height: 36px;
+    color: #ffffff;
+    background-color: hsla(148, 61%, 46%, 1);
+    border-radius: 4px;
+    margin-top: 70px;
+}
+
+.switch-account {
+    background-color: #ffffff;
+    color: rgb(89, 107, 144);
+    margin-top: 22px;
+}
+```
 
 此时界面如图：
 
@@ -188,6 +229,10 @@ export default App
 尝试操作 Log In：
 
 ![Log In](https://blog.mazey.net/wp-content/uploads/2024/02/demo-20240213-171601-login-w280.png)
+
+尝试操作 Switch Account：
+
+![Switch Account](https://blog.mazey.net/wp-content/uploads/2024/02/demo-Screen-Shot-at-221232-switch-w280.png)
 
 底部图标：
 
@@ -216,13 +261,19 @@ wails build -platform=windows/amd64
 
 ![打包](https://blog.mazey.net/wp-content/uploads/2024/02/demo-Screen-Shot-at-172715-w569.png)
 
-为 macOS 创建 `.dmg` 文件：
+使用 [create-dmg](https://github.com/create-dmg/create-dmg "create-dmg") 为 macOS 创建 `.dmg` 文件：
 
 ```bash
 create-dmg WeChat.dmg WeChat.app
 ```
 
 ![macOS](https://blog.mazey.net/wp-content/uploads/2024/02/demo-Screen-Shot-at-211048-w300.png)
+
+以上文件可以进入 Releases 页面查看：
+
+<https://github.com/mazeyqian/go-run-wechat-demo/releases/tag/v1.0.0>
+
+![Releases](https://blog.mazey.net/wp-content/uploads/2024/02/demo-Screen-Shot-at-231424-w600.png)
 
 ## 总结
 
