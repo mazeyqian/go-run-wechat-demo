@@ -1,4 +1,4 @@
-# Go 桌面应用实战｜使用 Wails 仿微信登录界面 Demo
+# Go 实战｜使用 Wails 构建轻量级的桌面应用：仿微信登录界面 Demo
 
 ![Go 桌面应用实战](https://blog.mazey.net/wp-content/uploads/2024/02/wechat-hub-banner-v2-tiny.jpg)
 
