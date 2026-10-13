@@ -2,7 +2,7 @@
 
 ![Go 桌面应用实战](./screenshot.jpg)
 
-本仓库使用 Wails v2、Go 和 React，演示仿微信登录界面的实现。两个按钮通过 Wails 调用 Go 方法，再将返回结果显示在页面上。项目没有接入微信服务，也不执行身份认证或保存账号。
+使用 Wails v2、Go 和 React，演示仿微信登录界面的实现。两个按钮通过 Wails 调用 Go 方法，再将返回结果显示在页面上。
 
 - [概述](#概述)
 - [前言](#前言)
@@ -343,5 +343,5 @@ create-dmg build/bin/WeChat.dmg "$wechat_dmg_source"
 <!-- ID: go-run-wechat-demo/README -->
 
 ```plain
-#Go #Wails #WailsV2 #React #TypeScript #DesktopApp #CrossPlatform #GoDevelopment #WebView #FrontendDevelopment #Go开发 #Wails #桌面应用 #跨平台开发 #React开发 #TypeScript #前后端通信 #桌面应用开发 #Go实战 #应用打包
+#Go #Wails #React #TypeScript #CrossPlatform #WebView #桌面应用 #跨平台 #Go实战 #应用打包
 ```
